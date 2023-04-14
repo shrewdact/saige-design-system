@@ -1,0 +1,31 @@
+/** 
+* This file defined the actual colors that will be used for styling. They will default to the 
+* we defined in the _variable.scss file. This is our default palette, and devs can override this  
+* with theri own variables.
+*/
+
+/*=============================================
+=            Global text colors               =
+=============================================*/
+
+$body-text-color: var(--sds-body-text-color, $dark) !default;
+$body-bg-color: var(--sds-body-bg-color, $white) !default;
+
+/*=============================================
+=            Buttons                          =
+=============================================*/
+
+$btn-primary-color: var(--sds-btn-primary-color, $white) !default;
+$btn-primary-bg: var(--sds-btn-primary-bg, $green) !default;
+$btn-primary-bg-hover: var(--sds-btn-priamry-bg-hover, $green-light) !default;
+
+/*=============================================
+=            Forms                            =
+=============================================*/
+
+$form-color: var(--sds-form-color, $dark) !default;
+$form-bg-: var(--sds-form-bg, $white) !default;
+$form-error-color: var(--sds-form-error-color, $red) !default;
+$form-error-border: var(--sds-form-error-bolder, $red) !default;
+$form-border-focus-color: var(--sds-form-border-focus-color, $green) !default;
+

@@ -11,7 +11,8 @@
     "rollup-plugin-typescript2": "^0.34.1"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "playgrounds/*"
   ],
   "private": true
 }
