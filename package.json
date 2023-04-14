@@ -1,5 +1,5 @@
 {
-  "name": "@saige-research/design-system",
+  "name": "@saige/design-system",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:shrewdact/saige-design-system.git",
@@ -13,6 +13,7 @@
   "workspaces": [
     "packages/*",
     "playgrounds/*"
+
   ],
   "private": true
 }

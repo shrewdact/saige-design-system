@@ -1,6 +1,25 @@
 {
-  "name": "scss",
+  "name": "@saige/scss",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "scripts": {
+    "lint": "stylelint './**/*.scss'",
+    "build": "node src/scripts/build.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "node-sass": "^8.0.0",
+    "normalize-scss": "^7.0.1",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "stylelint": "^15.4.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-sass-guidelines": "^10.0.0",
+    "stylelint-prettier": "^3.0.0"
+  },
+  "workspaces": {
+    "nohoist": [
+      "*normalize-scss*"
+    ]
+  }
 }
