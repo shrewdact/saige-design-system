@@ -1,0 +1,11 @@
+@import "foundation/all";
+
+@each $size, $value in $spacing { 
+  .sds-width-#{$size} {
+    width: $value
+  }
+
+  .sds-height-#{$size} {
+    height: $value
+  }
+}
