@@ -11,7 +11,7 @@ const getComponents = () => {
 
     const allFiles = Fs.readdirSync(`src/${type}`).map(file => ({
       input: `src/${type}/${file}`,
-      output: `src/lib/${file.slice(0, -4) + 'css'}`
+      output: `lib/${file.slice(0, -4) + 'css'}`
     }))
 
     allComponents = [
@@ -33,7 +33,7 @@ const compile = (path, fileName) => {
     includePaths: [Path.resolve('src')]
   })
 
-  const dir = 'src/lib'
+  const dir = 'lib'
 
   if (!Fs.existsSync(dir)) {
     Fs.mkdirSync(dir, { recursive: true })
@@ -44,6 +44,8 @@ const compile = (path, fileName) => {
     result.css.toString()
   )
 }
+
+compile('src/global.scss', 'lib/global.css')
 
 getComponents().forEach(component => {
   compile(component.input, component.output)

@@ -1,19 +1,26 @@
 {
-  "name": "@saige/design-system",
+  "name": "@saige.ds/core",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:shrewdact/saige-design-system.git",
   "author": "성혁 주 <sh.ju@saigeresearch.ai>",
   "license": "MIT",
+  "scripts": {
+    "build": "yarn lerna run build"
+  },
   "devDependencies": {
     "lerna": "^6.6.1",
     "rollup": "^3.20.2",
     "rollup-plugin-typescript2": "^0.34.1"
   },
-  "workspaces": [
-    "packages/*",
-    "playgrounds/*"
-
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "playgrounds": ["playgrounds/*"],
+    "nohoist": [
+      "**/normalize-scss"
+    ]
+  },
   "private": true
 }
