@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Button } from '@saige.ds/react'
+import { Color } from '@saige.ds/react'
 
 import '@saige.ds/scss/lib/Button.css'
 
 ReactDOM.render(
-  <Button label='Saige Button' />,
+  <Color  hexCode="#000" width='1rem' height='1rem'/>,
   document.querySelector('#root')
 )
