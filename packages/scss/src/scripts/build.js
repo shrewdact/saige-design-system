@@ -3,24 +3,48 @@ const Path = require('path')
 
 const Sass = require('node-sass')
 
-const result = Sass.renderSync({
-  data: Fs.readFileSync(
-    Path.resolve('src/global.scss')
-  ).toString(),
-  outputStyle: 'expanded',
-  outFile: 'global.css',
-  includePaths: [Path.resolve('src')]
-})
+const getComponents = () => {
+  let allComponents = []
+  const types = ['atoms', 'molecules', 'organisms']
 
-console.log(result.css.toString())
+  types.forEach(type => {
 
-const dir = 'src/lib'
+    const allFiles = Fs.readdirSync(`src/${type}`).map(file => ({
+      input: `src/${type}/${file}`,
+      output: `src/lib/${file.slice(0, -4) + 'css'}`
+    }))
 
-if (!Fs.existsSync(dir)) {
-  Fs.mkdirSync(dir, { recursive: true })
+    allComponents = [
+      ...allComponents,
+      ...allFiles
+    ]
+  })
+
+  return allComponents
 }
 
-Fs.writeFileSync(
-  Path.resolve(dir + '/global.css'),
-  result.css.toString()
-)
+const compile = (path, fileName) => {
+  const result = Sass.renderSync({
+    data: Fs.readFileSync(
+      Path.resolve(path)
+    ).toString(),
+    outputStyle: 'expanded',
+    outFile: 'global.css',
+    includePaths: [Path.resolve('src')]
+  })
+
+  const dir = 'src/lib'
+
+  if (!Fs.existsSync(dir)) {
+    Fs.mkdirSync(dir, { recursive: true })
+  }
+
+  Fs.writeFileSync(
+    Path.resolve(fileName),
+    result.css.toString()
+  )
+}
+
+getComponents().forEach(component => {
+  compile(component.input, component.output)
+})
