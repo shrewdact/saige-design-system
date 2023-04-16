@@ -1605,7 +1605,11 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
-"@saige/scss@file:/Users/seonghyeokju/Dev/github/mine/saige-design-system/packages/scss":
+"@saige.ds/react@file:/Users/seonghyeokju/Dev/github/mine/saige-design-system/packages/react":
+  "resolved" "file:packages/react"
+  "version" "1.0.0"
+
+"@saige.ds/scss@file:/Users/seonghyeokju/Dev/github/mine/saige-design-system/packages/scss":
   "resolved" "file:packages/scss"
   "version" "1.0.0"
 
@@ -10031,12 +10035,12 @@
   "resolved" "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   "version" "0.0.6"
 
-"typescript@^3 || ^4", "typescript@>=2.4.0":
+"typescript@^3 || ^4":
   "integrity" "sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   "version" "4.9.5"
 
-"typescript@^5.0.4":
+"typescript@^5.0.4", "typescript@>=2.4.0":
   "integrity" "sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-5.0.4.tgz"
   "version" "5.0.4"
