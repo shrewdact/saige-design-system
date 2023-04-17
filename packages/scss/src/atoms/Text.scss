@@ -1,0 +1,11 @@
+@import 'foundatoin/all';
+
+.sds-text {
+  margin: 0;
+}
+
+@each $size, $value in $fs {
+  .sds-text-#{$size} {
+    font-size: $value;
+  }
+}
