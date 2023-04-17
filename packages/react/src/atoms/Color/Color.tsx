@@ -1,10 +1,10 @@
 import React from 'react'
-import Spacing from '../../foundations/Spacing'
+import { Spacing } from '@saige.ds/foundation'
 
 interface ColorProps {
   hexCode: string
-  width?: keyof typeof Spacing 
-  height?:  keyof typeof Spacing
+  width?: keyof typeof Spacing
+  height?: keyof typeof Spacing
 }
 const Color: React.FC<ColorProps> = ({
   hexCode,
