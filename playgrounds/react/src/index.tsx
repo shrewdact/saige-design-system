@@ -6,6 +6,7 @@ import { Text, Color, Margin, Select } from '@saige.ds/react'
 import '@saige.ds/scss/lib/Utilities.css'
 import '@saige.ds/scss/lib/Text.css'
 import '@saige.ds/scss/lib/Margin.css'
+import '@saige.ds/scss/lib/Select.css'
 import '@saige.ds/scss/lib/global.css'
 
 const options = [
@@ -25,6 +26,7 @@ const root = ReactDOMClient.createRoot(
 root.render(
   <div>
     <Select options={options} />
+    <p>this is some text</p>
   </div>
 )
 

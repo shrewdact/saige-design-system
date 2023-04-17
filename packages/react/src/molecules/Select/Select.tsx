@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface SelectOption {
   label: string
@@ -10,13 +10,16 @@ interface SelectProps {
   options: SelectOption[]
   label?: string
 }
+import { HiChevronDown } from 'react-icons/hi'
 
 const Select: React.FC<SelectProps> = ({
   options = [],
-  label = 'Please select an option.',
+  label = 'Please select an option...',
   onOptionSelected: handler,
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const labelRef = useRef<HTMLButtonElement>(null)
+  const [overlayTop, setOverlayTop] = useState<number>(0)
 
   const onOptionSelected = (option: SelectOption, optionIndex: number) => {
     setIsOpen(!isOpen)
@@ -30,12 +33,25 @@ const Select: React.FC<SelectProps> = ({
     setIsOpen(!isOpen)
   }
 
+  useEffect(() => {
+    setOverlayTop(labelRef.current?.offsetHeight || 0)
+  }, [labelRef.current?.offsetHeight])
+
   return (
-    <div>
-      <button onClick={() => onLabelClick()}>{label}</button>
+    <div className='sds-select'>
+      <button
+        ref={labelRef}
+        className='sds-select__label'
+        onClick={() => onLabelClick()}
+      >
+        <span>{label}</span>
+        <span>
+          <HiChevronDown width='1rem' height='1rem' />
+        </span>
+      </button>
 
       {isOpen ? (
-        <ul>
+        <ul className='sds-select__overlay' style={{top: overlayTop}}>
           {options.map((option, optionIndex) => {
             return (
               <li
