@@ -97,6 +97,7 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div className='sds-select'>
       <button
+        data-testid='SdsSelectButton'
         aria-controls='sds-select-list'
         aria-haspopup={true}
         aria-expanded={isOpen ? true : undefined}
@@ -135,7 +136,10 @@ const Select: React.FC<SelectProps> = ({
               getOptionRecommendedProps: (overrideProps = {}) => {
                 return {
                   ref,
-                  tabIndex: isHighlighted ? -1: 0,
+                  role: 'menuitemradio',
+                  'aria-label': option.label,
+                  'aria-checked': isSelected ? true : undefined,
+                  tabIndex: isHighlighted ? -1 : 0,
                   onMouseEnter: () => hightlightItem(optionIndex),
                   onMouseLeave: () => hightlightItem(null),
                   className: `sds-select__option 
