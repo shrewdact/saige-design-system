@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import Text from '../../atoms/Text/Text'
+import { HiCheck } from 'react-icons/hi'
 
 interface SelectOption {
   label: string
@@ -18,6 +20,7 @@ const Select: React.FC<SelectProps> = ({
   onOptionSelected: handler,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [selectedIndex, setSelectedIndex] = useState<null | number>(null)
   const labelRef = useRef<HTMLButtonElement>(null)
   const [overlayTop, setOverlayTop] = useState<number>(0)
 
@@ -27,6 +30,9 @@ const Select: React.FC<SelectProps> = ({
     if (handler) {
       handler(option, optionIndex)
     }
+
+    setSelectedIndex(optionIndex)
+    setIsOpen(false)
   }
 
   const onLabelClick = () => {
@@ -37,6 +43,12 @@ const Select: React.FC<SelectProps> = ({
     setOverlayTop(labelRef.current?.offsetHeight || 0)
   }, [labelRef.current?.offsetHeight])
 
+  let selectedOption = null
+
+  if (selectedIndex !== null) {
+    selectedOption = options[selectedIndex]
+  }
+
   return (
     <div className='sds-select'>
       <button
@@ -44,22 +56,28 @@ const Select: React.FC<SelectProps> = ({
         className='sds-select__label'
         onClick={() => onLabelClick()}
       >
-        <span>{label}</span>
+        <Text>{selectedOption === null ? label : selectedOption.label}</Text>
         <span>
           <HiChevronDown width='1rem' height='1rem' />
         </span>
       </button>
 
       {isOpen ? (
-        <ul className='sds-select__overlay' style={{top: overlayTop}}>
+        <ul className='sds-select__overlay' style={{ top: overlayTop }}>
           {options.map((option, optionIndex) => {
+            const isSelected = selectedIndex === optionIndex
+
             return (
               <li
                 key={option.value}
-                className="sds-select__option"
+                className={`sds-select__option ${
+                  isSelected ? 'sds-select__option--selected' : ''
+                }`}
                 onClick={() => onOptionSelected(option, optionIndex)}
               >
-                {option.label}
+                <Text>{option.label}</Text>
+
+                {isSelected && <HiCheck width='1rem' height='1rem' />}
               </li>
             )
           })}
