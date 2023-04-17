@@ -24,8 +24,15 @@ const root = ReactDOMClient.createRoot(
 )
 
 root.render(
-  <div style={{padding: '40px'}}>
+  <div style={{ padding: '40px' }}>
     <Select options={options} />
+
+    {/* <Select
+      options={options}
+      renderOption={({ option, getOptionRecommendedProps }) => (
+        <p {...getOptionRecommendedProps({className: 'custom'})}>{option.label}</p>
+      )}
+    /> */}
   </div>
 )
 
