@@ -56,6 +56,7 @@ const Select: React.FC<SelectProps> = ({
             return (
               <li
                 key={option.value}
+                className="sds-select__option"
                 onClick={() => onOptionSelected(option, optionIndex)}
               >
                 {option.label}
