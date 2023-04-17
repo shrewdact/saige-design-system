@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { KeyboardEventHandler, useEffect, useRef, useState } from 'react'
 import Text from '../../atoms/Text/Text'
 import { HiCheck } from 'react-icons/hi'
 
@@ -6,6 +6,8 @@ interface SelectOption {
   label: string
   value: string
 }
+
+const KEY_CODES = ['Enter', ' ', 'ArrowDown']
 
 interface RenderOptionProps {
   isSelected: boolean
@@ -20,6 +22,7 @@ interface SelectProps {
   renderOption?: (props: RenderOptionProps) => React.ReactNode
 }
 import { HiChevronDown } from 'react-icons/hi'
+import { createRef } from 'react'
 
 const Select: React.FC<SelectProps> = ({
   options = [],
@@ -29,7 +32,11 @@ const Select: React.FC<SelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [selectedIndex, setSelectedIndex] = useState<null | number>(null)
+  const [highlightedIndex, setHighlightedIndex] = useState<null | number>(null)
   const labelRef = useRef<HTMLButtonElement>(null)
+  const [optionRefs, setOptionRefs] = useState<
+    React.RefObject<HTMLLIElement>[]
+  >([])
   const [overlayTop, setOverlayTop] = useState<number>(0)
 
   const onOptionSelected = (option: SelectOption, optionIndex: number) => {
@@ -57,6 +64,36 @@ const Select: React.FC<SelectProps> = ({
     selectedOption = options[selectedIndex]
   }
 
+  const hightlightItem = (optionIndex: number | null) => {
+    setHighlightedIndex(optionIndex)
+  }
+
+  const onButtonKeyDown: KeyboardEventHandler = (event) => {
+    event.preventDefault()
+    if (KEY_CODES.includes(event.key)) {
+      setIsOpen(true)
+
+      // set focus on the list item
+      hightlightItem(0)
+    }
+  }
+
+  useEffect(() => {
+    setOptionRefs(options.map((_) => createRef<HTMLLIElement>()))
+  }, [options.length])
+
+  // console.log(optionRefs)
+
+  useEffect(() => {
+    if (highlightedIndex !== null && isOpen) {
+      const ref = optionRefs[highlightedIndex]
+
+      if (ref && ref.current) {
+        ref.current.focus()
+      }
+    }
+  }, [isOpen])
+
   return (
     <div className='sds-select'>
       <button
@@ -66,6 +103,7 @@ const Select: React.FC<SelectProps> = ({
         ref={labelRef}
         className='sds-select__label'
         onClick={() => onLabelClick()}
+        onKeyDown={onButtonKeyDown}
       >
         <Text>{selectedOption === null ? label : selectedOption.label}</Text>
         <span>
@@ -88,14 +126,22 @@ const Select: React.FC<SelectProps> = ({
         >
           {options.map((option, optionIndex) => {
             const isSelected = selectedIndex === optionIndex
+            const isHighlighted = highlightedIndex === optionIndex
+            const ref = optionRefs[optionIndex]
+
             const renderOptionProps = {
               option,
               isSelected,
               getOptionRecommendedProps: (overrideProps = {}) => {
                 return {
-                  className: `sds-select__option ${
-                    isSelected ? 'sds-select__option--selected' : ''
-                  }`,
+                  ref,
+                  tabIndex: isHighlighted ? -1: 0,
+                  onMouseEnter: () => hightlightItem(optionIndex),
+                  onMouseLeave: () => hightlightItem(null),
+                  className: `sds-select__option 
+                  ${isSelected ? 'sds-select__option--selected' : ''}
+                  ${isHighlighted ? 'sds-select__option--highlighted' : ''}
+                  `,
                   key: option.value,
                   onClick: () => onOptionSelected(option, optionIndex),
                   ...overrideProps,
@@ -107,13 +153,7 @@ const Select: React.FC<SelectProps> = ({
               return renderOption(renderOptionProps)
             }
             return (
-              <li
-                key={option.value}
-                className={`sds-select__option ${
-                  isSelected ? 'sds-select__option--selected' : ''
-                }`}
-                onClick={() => onOptionSelected(option, optionIndex)}
-              >
+              <li {...renderOptionProps.getOptionRecommendedProps()}>
                 <Text>{option.label}</Text>
 
                 {isSelected && <HiCheck width='1rem' height='1rem' />}
