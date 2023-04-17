@@ -60,6 +60,9 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div className='sds-select'>
       <button
+        aria-controls='sds-select-list'
+        aria-haspopup={true}
+        aria-expanded={isOpen ? true : undefined}
         ref={labelRef}
         className='sds-select__label'
         onClick={() => onLabelClick()}
@@ -77,7 +80,12 @@ const Select: React.FC<SelectProps> = ({
       </button>
 
       {isOpen ? (
-        <ul className='sds-select__overlay' style={{ top: overlayTop }}>
+        <ul
+          role='menu'
+          id='sds-select-list'
+          className='sds-select__overlay'
+          style={{ top: overlayTop }}
+        >
           {options.map((option, optionIndex) => {
             const isSelected = selectedIndex === optionIndex
             const renderOptionProps = {
@@ -89,7 +97,7 @@ const Select: React.FC<SelectProps> = ({
                     isSelected ? 'sds-select__option--selected' : ''
                   }`,
                   key: option.value,
-                  onClick:() => onOptionSelected(option, optionIndex),
+                  onClick: () => onOptionSelected(option, optionIndex),
                   ...overrideProps,
                 }
               },
