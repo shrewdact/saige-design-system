@@ -16,9 +16,9 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "playgrounds/*"
     ],
-    "playgrounds": ["playgrounds/*"],
     "nohoist": [
       "**/normalize-scss"
     ]

@@ -1,17 +1,31 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import * as ReactDOMClient from 'react-dom/client'
 
-import { Text, Color, Margin } from '@saige.ds/react'
+import { Text, Color, Margin, Select } from '@saige.ds/react'
 
 import '@saige.ds/scss/lib/Utilities.css'
-// import '@saige.ds/scss/lib/Text.css'
+import '@saige.ds/scss/lib/Text.css'
 import '@saige.ds/scss/lib/Margin.css'
 import '@saige.ds/scss/lib/global.css'
 
-ReactDOM.render(
-  <Margin>
-    <Text size='xs'>this is some text</Text>
-  </Margin>,
+const options = [
+  { label: 'Strict Black', value: 'strict-black' },
+  { label: 'Heavenly Green', value: 'heavenly-green' },
+  { label: 'Sweet Pink', value: 'sweet pink' },
+]
+
+const root = ReactDOMClient.createRoot(
+  document.getElementById('root')!
+  // <Margin>
+  //   <Text size='xs'>this is some text</Text>
+  // </Margin>,
   // <Color hexCode='#000' width='lg' height='lg' />,
-  document.querySelector('#root')
 )
+
+root.render(
+  <div>
+    <Select options={options} />
+  </div>
+)
+
+// <Select label='Please select a size' onOptionSelected={console.log()} options={[{label: '', value: ''}]}

@@ -1,1 +1,15 @@
-{"version":"1.0.0","name":"@saige.ds/core","dependencies":{"@saige.ds/react":{"version":"1.0.0"},"@saige.ds/scss":{"version":"1.0.0"}}}
+{
+  "version": "1.0.0",
+  "name": "@saige.ds/core",
+  "dependencies": {
+    "@saige.ds/react": {
+      "version": "1.0.0"
+    },
+    "@saige.ds/scss": {
+      "version": "1.0.0"
+    },
+    "@saige.ds/playgrounds": {
+      "version": "1.0.0"
+    }
+  }
+}
